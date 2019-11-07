@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'has-lista-projetos',
@@ -8,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 export class ListaProjetosComponent implements OnInit {
 projetos = [{"nome":"Projeto 1","sala":"Lab 08","turma": "2Q" },
             {"nome":"Projeto 2","sala":"Lab 09","turma": "3Q"} ];
-  constructor() { }
+  constructor(private raiter : Router) { }
 
   ngOnInit() {
   }
-
+  detalhes(id : number){
+    this.raiter.navigate(['detalheprojeto',id]);
+  }
 }
