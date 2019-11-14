@@ -9,7 +9,7 @@ import { Projeto } from '../model/projeto';
 })
 export class ProjetoApiService {
 
-  apiURL: string = "http://quiteriaetec.somee.com/api/";
+  apiURL: string = "/proxy/Projetos";
 
   constructor( private httpClient: HttpClient) { }
 
@@ -20,7 +20,7 @@ export class ProjetoApiService {
   }    
 
   getProjetos() : Observable<Projeto[]> {
-    return this.httpClient.get<Projeto[]>(this.apiURL + "Projetos")
+    return this.httpClient.get<Projeto[]>(this.apiURL)
                           .pipe(retry(1),
                            catchError(this.handleError))
   }
