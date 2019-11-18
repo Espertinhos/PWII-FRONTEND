@@ -8,6 +8,13 @@ import { Projeto } from '../model/projeto';
   providedIn: 'root'
 })
 export class ProjetoApiService {
+  
+  createProjeto(projeto: Projeto): Observable<Projeto> {
+    //throw new Error("Method not implemented.");
+    return this.httpClient.post<Projeto>(this.apiURL, projeto)
+                          .pipe(retry(1),
+                           catchError(this.handleError));
+  }
 
   apiURL: string = "/proxy/Projetos";
 

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms'
+import { Projeto } from '../model/projeto';
+import { ProjetoApiService } from '../service/projeto-api.service';
 
 @Component({
   selector: 'has-novo-projeto',
@@ -7,9 +10,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NovoProjetoComponent implements OnInit {
 
-  constructor() { }
+  formProjeto: FormGroup;
+  constructor(public formBuilder: FormBuilder, private service : ProjetoApiService) { }
 
-  ngOnInit() {
+  ngOnInit() {   
+    this.formProjeto = this.formBuilder.group({
+      Id : this.formBuilder.control(''),
+      Nome : this.formBuilder.control(''),
+      Orientadores : this.formBuilder.control(''),
+      Sala : this.formBuilder.control(''),
+      Turma : this.formBuilder.control('')
+    })
+  }
+    
+
+
+  onSalvar() {
+    let projeto : Projeto = this.formProjeto.value;
+    this.service.createProjeto(projeto)
+        .subscribe(data => console.log(data),
+                   error => console.log(error));
   }
 
 }
